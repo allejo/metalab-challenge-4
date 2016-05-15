@@ -1,0 +1,281 @@
+//
+// Variable setup
+//
+
+$color-red: #CE1126;
+$color-grey: #55565A;
+$color-lgrey: #EFEFEF;
+
+$breakpoints: (
+    "xs": 0,
+    "sm": 480px,
+    "md": 768px,
+    "lg": 992px
+);
+
+//
+// Placeholders
+//
+
+%clearfix {
+    &:after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+}
+
+%short-border {
+    &:after {
+        border-top: 1px solid $color-red;
+        content: '';
+        display: block;
+        margin-top: 10px;
+        width: 30px;
+    }
+}
+
+%margin-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//
+// Mix-ins
+//
+
+@mixin respond-to($bp) {
+    $_size: map-get($breakpoints, $bp);
+
+    @if $_size == 0 {
+        @content;
+    }
+    @else {
+        @media only screen and (min-width: $_size) {
+            @content;
+        }
+    }
+}
+
+//
+// Styles
+//
+
+.row-marginless {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+nav,
+nav a {
+    color: #D0D0D0;
+}
+
+nav {
+    text-align: center;
+
+    @include respond-to(md) {
+        text-align: left;
+    }
+
+    .telephone {
+        padding-top: 31px;
+    }
+
+    ul {
+        li {
+            padding-right: 15px;
+
+            a {
+                border-top: 1px solid transparent;
+                display: block;
+                padding-top: 30px;
+                text-decoration: none;
+
+                &:hover,
+                &.active {
+                    border-top-color: $color-red;
+                    color: $color-red;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.hero {
+    padding: 30px 0 60px;
+
+    @include respond-to(md) {
+        display: table;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding: 60px 0 120px;
+        table-layout: fixed;
+    }
+
+    .branding,
+    .description {
+        @include respond-to(md) {
+            display: table-cell;
+            padding-left: 15px;
+            padding-right: 15px;
+            width: 50%;
+        }
+    }
+
+    .branding {
+        .logo {
+            width: 80px;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 100;
+        }
+
+        h2 {
+            font-size: 36px;
+        }
+    }
+
+    .slogan {
+        font-size: 20px;
+        font-weight: bold;
+        padding-top: 15px;
+    }
+
+    .description {
+        vertical-align: bottom;
+    }
+}
+
+.team-members {
+    > .col-sm-3,
+    > .col-sm-4 {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+}
+
+.team-members--leads {
+    border-bottom: 1px solid $color-lgrey;
+}
+
+.team-member {
+    display: inline-block;
+
+    .profile-picture {
+        position: relative;
+    }
+
+    .profile-description {
+        padding: 30px 50px;
+        text-align: left;
+
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .position {
+            @extend %short-border;
+
+            font-size: 16px;
+            font-weight: 100;
+            margin-top: 5px;
+        }
+    }
+}
+
+.team-member:hover {
+    .profile-picture {
+        &:after {
+            background-color: rgba($color-red, 0.5);
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+    }
+
+    .profile-description {
+        .name {
+            color: $color-red;
+        }
+    }
+}
+
+.blockquote {
+    padding: 60px 40px;
+
+    @include respond-to(md) {
+        padding: 130px;
+    }
+
+    .content {
+        font-size: 50px;
+        font-style: italic;
+        font-weight: 100;
+    }
+
+    footer p {
+        @extend %short-border;
+
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+.page-footer {
+    background-color: #21201F;
+    color: #C1C1C1;
+    padding: 45px 0;
+
+    @include respond-to(md) {
+        padding: 90px 0;
+    }
+}
+
+.page-footer-links {
+    li {
+        text-align: center;
+
+        @include respond-to(md) {
+            text-align: left;
+        }
+    }
+}
+
+.page-footer-branding {
+    .brand {
+        text-align: center;
+
+        p,
+        img {
+            @include respond-to(md) {
+                float: left;
+            }
+        }
+
+        .meta-slogan {
+            font-size: 24px;
+            font-weight: 100;
+
+            @include respond-to(md) {
+                margin-left: 30px;
+            }
+        }
+    }
+
+    .meta-logo {
+        width: 80px;
+    }
+
+    .meta-slogan {
+        line-height: 80px;
+    }
+}
